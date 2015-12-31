@@ -1,0 +1,44 @@
+{
+    "parser": "babel-eslint",
+    "rules": {
+        "strict": 0,
+        "indent": [
+            1,
+            "tab"
+        ],
+        "quotes": [
+            1,
+            "single"
+        ],
+        "linebreak-style": [
+            1,
+            "unix"
+        ],
+        "semi": [
+            2,
+            "always"
+        ],
+        "no-unused-vars": [
+            1
+        ]
+    },
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+    },
+    "globals": {
+        "ipc": false,
+        "remote": false,
+        "shell": false
+    },
+    "extends": "eslint:recommended",
+    "ecmaFeatures": {
+        "jsx": true,
+        "experimentalObjectRestSpread": true,
+        "modules": true
+    },
+    "plugins": [
+        "react"
+    ]
+}
