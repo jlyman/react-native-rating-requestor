@@ -1,0 +1,12 @@
+{
+  "name": "RatingRequestorExample",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "react-native": "^0.17.0",
+    "react-native-rating-requestor": "^1.0.0"
+  }
+}
