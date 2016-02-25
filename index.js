@@ -1,4 +1,4 @@
-import React, { AlertIOS, LinkingIOS } from 'react-native';
+import React, { Platform, Alert, Linking } from 'react-native';
 
 import RatingsData from './RatingsData';
 
@@ -7,12 +7,12 @@ const _config = {
 	message: 'We hope you\'re loving our app. If you are, would you mind taking a quick moment to leave us a positive review?',
 	appStoreId: null,
 	actionLabels: {
-		decline: 'No thanks',
-		delay: 'Not right now',
-		accept: 'Sure'
+		decline: 'Don\'t ask again',
+		delay: 'Maybe later...',
+		accept: 'Sure!'
 	},
 	timingFunction: function(currentCount) {
-		return currentCount > 1 && Math.log(currentCount) / Math.log(3) % 1 == 0;
+		return currentCount > 1 && (Math.log(currentCount) / Math.log(3)).toFixed(4) % 1 == 0;
 	}
 };
 
@@ -63,16 +63,19 @@ export default class RatingRequestor {
 			let currentCount = await RatingsData.incrementCount();
 
 			if (_config.timingFunction(currentCount)) {
-				AlertIOS.alert(
+				let storeUrl = Platform.OS === 'ios' ?
+					'http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8' :
+					'market://details?id=' + _config.appStoreId;
+				Alert.alert(
 					_config.title, 
 					_config.message, 
 					[
-						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); } },
 						{ text: _config.actionLabels.delay, onPress: () => {} },
+						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); } },
 						{ text: _config.actionLabels.accept, onPress: () => { 
 							RatingsData.recordRated(); 
-							LinkingIOS.openURL('http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8');
-						}, style: 'default' }
+							Linking.openURL(storeUrl);
+						} }
 					]
 				);	
 			}
