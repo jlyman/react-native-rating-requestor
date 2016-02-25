@@ -70,12 +70,12 @@ export default class RatingRequestor {
 					_config.title, 
 					_config.message, 
 					[
-						{ text: _config.actionLabels.delay, onPress: () => {} },
-						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); } },
+						{ text: _config.actionLabels.delay, onPress: () => {}, style: 'default' },
+						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); }, style: 'destructive' },
 						{ text: _config.actionLabels.accept, onPress: () => { 
 							RatingsData.recordRated(); 
 							Linking.openURL(storeUrl);
-						} }
+						}, style: 'cancel' }
 					]
 				);	
 			}
