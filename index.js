@@ -58,7 +58,7 @@ export default class RatingRequestor {
 	 * Call when a positive interaction has occurred within your application. Depending on the number
 	 * of times this has occurred and your timing function, this may display a rating request dialog.
 	 */
-	async handlePositiveEvent() {
+	async handlePositiveEvent(callback) {
 		if (await _isAwaitingRating()) {
 			let currentCount = await RatingsData.incrementCount();
 
@@ -67,15 +67,16 @@ export default class RatingRequestor {
 					_config.title, 
 					_config.message, 
 					[
-						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); } },
-						{ text: _config.actionLabels.delay, onPress: () => {} },
+						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
+						{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
 						{ text: _config.actionLabels.accept, onPress: () => { 
 							RatingsData.recordRated(); 
+							callback(true, 'accept');
 							LinkingIOS.openURL('http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8');
 						}, style: 'default' }
 					]
 				);	
-			}
-		}
+			} else callback(false);
+		} else callback(false);
 	}
 }
