@@ -59,6 +59,10 @@ export default class RatingRequestor {
 	 * of times this has occurred and your timing function, this may display a rating request dialog.
 	 */
 	async handlePositiveEvent(callback) {
+		
+		// Optional callback field. If callbacks provided, returns user action. Else, calls an empty function.
+		callback = callback || function () {};
+		
 		if (await _isAwaitingRating()) {
 			let currentCount = await RatingsData.incrementCount();
 
