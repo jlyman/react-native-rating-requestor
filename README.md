@@ -23,6 +23,21 @@ When a positive UX event occurs, let the Rating Requestor know so that it can ke
 		RatingTracker.handlePositiveEvent();
 	}
 
+The example above is used without callback. If a callback provided, it returns the user action. Has two parameters, first one indicates whether is rating requester popped up or not (true/false), second one returns the user decision ('decline', 'delay' or 'accept')
+
+	if (user_saved_the_world) {
+		RatingTracker.handlePositiveEvent(function(isPoppedUp, userDecision) {
+			if (isPoppedUp)
+				switch(userDecision)
+				{
+					case 'decline': console.log('User declined to rate'); break;
+					case 'delay'  : console.log('User delayed to rate, will be asked later'); break;
+					case 'accept' : console.log('User accepted to rate, redirecting to AppStore'); break;
+				}
+			else console.log('Request popup is not popped up. Will be pop on further positive events.');
+		});
+	}
+
 If enough positive events have occurred (defined by the `timingFunction`) then a rating dialog will pop up. The user can rate the app or decline to rate, in which case they won't be bothered again, or can choose to maybe do so later, in which case the Rating Requestor will keep on tracking positive event counts.
 
 ## Configuration
