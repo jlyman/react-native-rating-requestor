@@ -23,18 +23,20 @@ When a positive UX event occurs, let the Rating Requestor know so that it can ke
 		RatingTracker.handlePositiveEvent();
 	}
 
-The example above is used without callback. If a callback provided, it returns the user action. Has two parameters, first one indicates whether is rating requester popped up or not (true/false), second one returns the user decision ('decline', 'delay' or 'accept')
+The example above is used without callback. A callback can be provided that reports on result of the handling. The callback accepts two parameters: the first indicates whether the request dialog appeared (boolean), and the second returns the user decision (string: 'decline', 'delay', or 'accept').
 
 	if (user_saved_the_world) {
-		RatingTracker.handlePositiveEvent(function(isPoppedUp, userDecision) {
-			if (isPoppedUp)
+		RatingTracker.handlePositiveEvent(function(didAppear, userDecision) {
+			if (didAppear) {
 				switch(userDecision)
 				{
 					case 'decline': console.log('User declined to rate'); break;
-					case 'delay'  : console.log('User delayed to rate, will be asked later'); break;
-					case 'accept' : console.log('User accepted to rate, redirecting to AppStore'); break;
+					case 'delay'  : console.log('User delayed rating, will be asked later'); break;
+					case 'accept' : console.log('User accepted invitation to rate, redirected to app store'); break;
 				}
-			else console.log('Request popup is not popped up. Will be pop on further positive events.');
+			} else {
+				console.log('Request popup did not pop up. May appear on future positive events.');
+			} 
 		});
 	}
 

@@ -57,10 +57,12 @@ export default class RatingRequestor {
 	/**
 	 * Call when a positive interaction has occurred within your application. Depending on the number
 	 * of times this has occurred and your timing function, this may display a rating request dialog.
+	 *
+	 * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
 	 */
 	async handlePositiveEvent(callback) {
 		
-		// Optional callback field. If callbacks provided, returns user action. Else, calls an empty function.
+		// Optional callback. Signature is callback(didAppear: boolean, result: string)
 		callback = callback || function () {};
 		
 		if (await _isAwaitingRating()) {
