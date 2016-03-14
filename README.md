@@ -81,11 +81,12 @@ Currently compatible with just iOS, but Android should be around the corner soon
 
 ## Releases
 
+- 1.1.0 - Added an optional callback to `handlePositiveEvent()` that reports on the result of the handling. Props to @sercanov.
 - 1.0.0 - Initial release
 
 ## Questions?
 
-Feel free to contact me!
+Feel free to contact me:
 
 - Twitter: [@jlyman](https://www.twitter.com/jlyman)
 - Website: http://www.joshualyman.com/

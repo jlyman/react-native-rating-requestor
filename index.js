@@ -60,11 +60,7 @@ export default class RatingRequestor {
 	 *
 	 * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
 	 */
-	async handlePositiveEvent(callback) {
-		
-		// Optional callback. Signature is callback(didAppear: boolean, result: string)
-		callback = callback || function () {};
-		
+	async handlePositiveEvent(callback = () => {}) {
 		if (await _isAwaitingRating()) {
 			let currentCount = await RatingsData.incrementCount();
 
