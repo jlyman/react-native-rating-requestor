@@ -55,6 +55,31 @@ export default class RatingRequestor {
 	}
 
 	/**
+	 * Call to immediately show the rating dialog
+	 *
+	 * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
+	 */
+	showRatingDialog(callback = () => {}) {
+		let storeUrl = Platform.OS === 'ios' ?
+			'http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8' :
+			'market://details?id=' + _config.appStoreId;
+
+		Alert.alert(
+			_config.title, 
+			_config.message, 
+			[
+				{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
+				{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
+				{ text: _config.actionLabels.accept, onPress: () => { 
+					RatingsData.recordRated(); 
+					callback(true, 'accept');
+					Linking.openURL(storeUrl);
+				}, style: 'cancel' }
+			]
+		);	
+	}
+
+	/**
 	 * Call when a positive interaction has occurred within your application. Depending on the number
 	 * of times this has occurred and your timing function, this may display a rating request dialog.
 	 *
@@ -65,22 +90,7 @@ export default class RatingRequestor {
 			let currentCount = await RatingsData.incrementCount();
 
 			if (_config.timingFunction(currentCount)) {
-				let storeUrl = Platform.OS === 'ios' ?
-					'http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8' :
-					'market://details?id=' + _config.appStoreId;
-				Alert.alert(
-					_config.title, 
-					_config.message, 
-					[
-						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
-						{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
-						{ text: _config.actionLabels.accept, onPress: () => { 
-							RatingsData.recordRated(); 
-							callback(true, 'accept');
-							Linking.openURL(storeUrl);
-						}, style: 'cancel' }
-					]
-				);	
+				this.showRatingDialog(callback);
 			} else callback(false);
 		} else callback(false);
 	}
