@@ -86,11 +86,12 @@ timingFunction: function(currentCount) {
 
 ## Notes
 
-Currently compatible with just iOS, but Android should be around the corner soon. (Need to replace AlertIOS with Alert, and an alternative for LinkingIOS).
+As of version 2.0.0 this package is compatible with both iOS and Android.
 
 ## Releases
 
-- 1.1.0 - Added an optional callback to `handlePositiveEvent()` that reports on the result of the handling. Props to @sercanov.
+- 2.0.0 - Supports Android, requires RN v0.20.0+, and added `showRatingDialog()` thanks to [@maximilianhurl](https://github.com/maximilianhurl).
+- 1.1.0 - Added an optional callback to `handlePositiveEvent()` that reports on the result of the handling. Props to [@sercanov](https://github.com/sercanov).
 - 1.0.0 - Initial release
 
 ## Questions?

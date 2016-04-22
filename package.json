@@ -18,6 +18,7 @@
     "react-component",
     "react-native",
     "ios",
+    "android",
     "ratings",
     "reviews"
   ],
