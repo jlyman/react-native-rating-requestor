@@ -45,6 +45,8 @@ The example above is used without callback. A callback can be provided that repo
 
 If enough positive events have occurred (defined by the `timingFunction`) then a rating dialog will pop up. The user can rate the app or decline to rate, in which case they won't be bothered again, or can choose to maybe do so later, in which case the Rating Requestor will keep on tracking positive event counts.
 
+You can also trigger the rating dialog to appear immediately by invoking `RatingTracker.showRatingDialog([callback])`. If you have a "Rate this App" button or link in an about page or something in your app, this would be a good place to use that.
+
 ## Configuration
 
 All configuration occurs on the construction of a new RatingRequestor. 
