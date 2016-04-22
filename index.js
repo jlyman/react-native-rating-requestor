@@ -57,8 +57,10 @@ export default class RatingRequestor {
 	/**
 	 * Call when a positive interaction has occurred within your application. Depending on the number
 	 * of times this has occurred and your timing function, this may display a rating request dialog.
+	 *
+	 * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
 	 */
-	async handlePositiveEvent() {
+	async handlePositiveEvent(callback = () => {}) {
 		if (await _isAwaitingRating()) {
 			let currentCount = await RatingsData.incrementCount();
 
@@ -70,15 +72,16 @@ export default class RatingRequestor {
 					_config.title, 
 					_config.message, 
 					[
-						{ text: _config.actionLabels.delay, onPress: () => {}, style: 'default' },
-						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); }, style: 'destructive' },
+						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
+						{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
 						{ text: _config.actionLabels.accept, onPress: () => { 
 							RatingsData.recordRated(); 
+							callback(true, 'accept');
 							Linking.openURL(storeUrl);
 						}, style: 'cancel' }
 					]
 				);	
-			}
-		}
+			} else callback(false);
+		} else callback(false);
 	}
 }
