@@ -4,7 +4,10 @@
   "description": "A React Native component to prompt users for a rating after positive interactions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prep-example": "cp ./* examples/RatingRequestorExample/node_modules/react-native-rating-requestor/",
+    "example-ios": "npm run prep-example; cd examples/RatingRequestorExample; react-native run-ios",
+    "example-android": "npm run prep-example; cd examples/RatingRequestorExample; react-native run-android"
   },
   "repository": {
     "type": "git",
@@ -25,6 +28,6 @@
   },
   "homepage": "https://github.com/jlyman/react-native-rating-requestor#readme",
   "peerDependencies": {
-    "react-native": ">= 0.15.0"
+    "react-native": ">= 0.20.0"
   }
 }

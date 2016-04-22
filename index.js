@@ -1,4 +1,4 @@
-import React, { AlertIOS, LinkingIOS } from 'react-native';
+import React, { Platform, Alert, Linking } from 'react-native';
 
 import RatingsData from './RatingsData';
 
@@ -7,12 +7,12 @@ const _config = {
 	message: 'We hope you\'re loving our app. If you are, would you mind taking a quick moment to leave us a positive review?',
 	appStoreId: null,
 	actionLabels: {
-		decline: 'No thanks',
-		delay: 'Not right now',
-		accept: 'Sure'
+		decline: 'Don\'t ask again',
+		delay: 'Maybe later...',
+		accept: 'Sure!'
 	},
 	timingFunction: function(currentCount) {
-		return currentCount > 1 && Math.log(currentCount) / Math.log(3) % 1 == 0;
+		return currentCount > 1 && (Math.log(currentCount) / Math.log(3)).toFixed(4) % 1 == 0;
 	}
 };
 
@@ -55,6 +55,34 @@ export default class RatingRequestor {
 	}
 
 	/**
+	 * Shows the rating dialog when called. Normally called by `handlePositiveEvent()`, but
+	 * can be called on its own as well. Use caution when doing so--you don't want to ask
+	 * the user for a rating too frequently or you might annoy them. (This is handy, however,
+	 * if the user proactively seeks out something in your app to leave a rating, for example.)
+	 *
+	 * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
+	 */
+	showRatingDialog(callback = () => {}) {
+		let storeUrl = Platform.OS === 'ios' ?
+			'http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8' :
+			'market://details?id=' + _config.appStoreId;
+
+		Alert.alert(
+			_config.title, 
+			_config.message, 
+			[
+				{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
+				{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
+				{ text: _config.actionLabels.accept, onPress: () => { 
+					RatingsData.recordRated(); 
+					callback(true, 'accept');
+					Linking.openURL(storeUrl);
+				}, style: 'cancel' }
+			]
+		);	
+	}
+
+	/**
 	 * Call when a positive interaction has occurred within your application. Depending on the number
 	 * of times this has occurred and your timing function, this may display a rating request dialog.
 	 *
@@ -65,19 +93,7 @@ export default class RatingRequestor {
 			let currentCount = await RatingsData.incrementCount();
 
 			if (_config.timingFunction(currentCount)) {
-				AlertIOS.alert(
-					_config.title, 
-					_config.message, 
-					[
-						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
-						{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
-						{ text: _config.actionLabels.accept, onPress: () => { 
-							RatingsData.recordRated(); 
-							callback(true, 'accept');
-							LinkingIOS.openURL('http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8');
-						}, style: 'default' }
-					]
-				);	
+				this.showRatingDialog(callback);
 			} else callback(false);
 		} else callback(false);
 	}
