@@ -55,7 +55,10 @@ export default class RatingRequestor {
 	}
 
 	/**
-	 * Call to immediately show the rating dialog
+	 * Shows the rating dialog when called. Normally called by `handlePositiveEvent()`, but
+	 * can be called on its own as well. Use caution when doing so--you don't want to ask
+	 * the user for a rating too frequently or you might annoy them. (This is handy, however,
+	 * if the user proactively seeks out something in your app to leave a rating, for example.)
 	 *
 	 * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
 	 */
