@@ -67,19 +67,39 @@ export default class RatingRequestor {
 			'http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8' :
 			'market://details?id=' + _config.appStoreId;
 
-		Alert.alert(
-			_config.title, 
-			_config.message, 
-			[
-				{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
-				{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
-				{ text: _config.actionLabels.accept, onPress: () => { 
-					RatingsData.recordRated(); 
-					callback(true, 'accept');
-					Linking.openURL(storeUrl);
-				}, style: 'cancel' }
-			]
-		);	
+			if (Platform.OS === 'ios') {
+				// Alert ordered for iOS style: 'default', 'cancel' or 'destructive'
+				// https://github.com/facebook/react-native/blob/master/Libraries/Alert/Alert.js#L45
+				Alert.alert(
+					_config.title,
+					_config.message,
+					[
+						{ text: _config.actionLabels.accept, onPress: () => {
+							RatingsData.recordRated();
+							callback(true, 'accept');
+							Linking.openURL(storeUrl);
+						}, style: 'default' },
+						{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); }, style: 'default' },
+						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); }, style: 'default' }
+					]
+				);
+			} else {
+				// Alert ordered for Android style: 'neutral', 'negative', 'positive'
+				// https://github.com/facebook/react-native/blob/master/Libraries/Alert/Alert.js#L54
+				Alert.alert(
+					_config.title,
+					_config.message,
+					[
+						{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
+						{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
+						{ text: _config.actionLabels.accept, onPress: () => {
+							RatingsData.recordRated();
+							callback(true, 'accept');
+							Linking.openURL(storeUrl);
+						}, style: 'cancel' }
+					]
+				);
+			}
 	}
 
 	/**
