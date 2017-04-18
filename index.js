@@ -81,8 +81,8 @@ export default class RatingRequestor {
 		};
 		let declineButton = {
 			text: _config.actionLabels.decline, onPress: () => {
-				callback(true, 'decline');
 				RatingsData.recordDecline();
+				callback(true, 'decline');
 			}
 		};
 		let buttons;
