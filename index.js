@@ -73,18 +73,18 @@ export default class RatingRequestor {
 				RatingsData.recordRated();
 				callback(true, 'accept');
 				Linking.openURL(storeUrl);
-			}, style: 'default'
+			}
 		};
 		let delayButton = {
 			text: _config.actionLabels.delay, onPress: () => {
 				callback(true, 'delay');
-			}, style: 'default'
+			}
 		};
 		let declineButton = {
 			text: _config.actionLabels.decline, onPress: () => {
 				callback(true, 'decline');
 				RatingsData.recordDecline();
-			}, style: 'default'
+			}
 		};
 		let buttons;
 		if (Platform.OS === 'ios') {
