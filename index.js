@@ -1,5 +1,5 @@
 import React, { Platform, Alert, Linking } from 'react-native';
-
+import * as StoreReview from 'react-native-store-review';
 import RatingsData from './RatingsData';
 
 const _config = {
@@ -76,7 +76,12 @@ export default class RatingRequestor {
 				{ text: _config.actionLabels.accept, onPress: () => { 
 					RatingsData.recordRated(); 
 					callback(true, 'accept');
-					Linking.openURL(storeUrl);
+					// This API is only available on iOS 10.3 or later
+					if (Platform.OS === 'ios' && StoreReview.isAvailable) {
+						StoreReview.requestReview();
+					} else {
+						Linking.openURL(storeUrl);
+					}
 				}, style: 'cancel' }
 			]
 		);	

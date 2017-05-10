@@ -30,5 +30,8 @@
   "homepage": "https://github.com/jlyman/react-native-rating-requestor#readme",
   "peerDependencies": {
     "react-native": ">= 0.20.0"
+  },
+  "dependencies": {
+    "react-native-store-review": "^0.1.2"
   }
 }
