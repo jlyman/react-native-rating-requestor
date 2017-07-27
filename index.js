@@ -64,7 +64,7 @@ export default class RatingRequestor {
 	 */
 	showRatingDialog(callback = () => {}) {
 		let storeUrl = Platform.OS === 'ios' ?
-			'http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8' :
+			'itms://itunes.apple.com/us/app/apple-store/' + _config.appStoreId + '?mt=8' :
 			'market://details?id=' + _config.appStoreId;
 
 		Alert.alert(
