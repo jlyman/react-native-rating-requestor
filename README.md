@@ -90,6 +90,7 @@ As of version 2.0.0 this package is compatible with both iOS and Android.
 
 ## Releases
 
+- 2.1.0 - Update the iOS store URL for iOS 11 compatibility thanks to [@rodrigopk](https://github.com/rodrigopk)
 - 2.0.0 - Supports Android, requires RN v0.20.0+, and added `showRatingDialog()` thanks to [@maximilianhurl](https://github.com/maximilianhurl).
 - 1.1.0 - Added an optional callback to `handlePositiveEvent()` that reports on the result of the handling. Props to [@sercanov](https://github.com/sercanov).
 - 1.0.0 - Initial release

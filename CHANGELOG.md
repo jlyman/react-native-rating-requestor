@@ -1,5 +1,10 @@
 A list of changes that have occured through the versions.
 
+2.1.0
+-----
+
+- Updated iOS store URL for iOS 11 compatibility thanks to [@rodrigopk](https://github.com/rodrigopk)
+
 2.0.0
 -----
 
