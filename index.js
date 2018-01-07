@@ -64,22 +64,22 @@ export default class RatingRequestor {
 	 */
 	showRatingDialog(callback = () => {}) {
 		let storeUrl = Platform.OS === 'ios' ?
-			'http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=' + _config.appStoreId + '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8' :
+			'https://itunes.apple.com/us/app/appName/id' + _config.appStoreId + '?mt=8&action=write-review':
 			'market://details?id=' + _config.appStoreId;
 
 		Alert.alert(
-			_config.title, 
-			_config.message, 
+			_config.title,
+			_config.message,
 			[
 				{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
 				{ text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
-				{ text: _config.actionLabels.accept, onPress: () => { 
-					RatingsData.recordRated(); 
+				{ text: _config.actionLabels.accept, onPress: () => {
+					RatingsData.recordRated();
 					callback(true, 'accept');
 					Linking.openURL(storeUrl);
 				}, style: 'cancel' }
 			]
-		);	
+		);
 	}
 
 	/**
