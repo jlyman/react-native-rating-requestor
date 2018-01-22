@@ -75,9 +75,9 @@ export default class RatingRequestor {
 					RatingsData.recordRated();
 					callback(true, 'accept');
 					Linking.openURL(storeUrl);
-				}, style: 'cancel' }
+				}, style: 'cancel' },
         { text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
-				{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } },
+				{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } }
 			]
 		);
 	}
