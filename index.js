@@ -67,18 +67,24 @@ export default class RatingRequestor {
 			'https://itunes.apple.com/us/app/appName/id' + _config.appStoreId + '?mt=8&action=write-review':
 			'market://details?id=' + _config.appStoreId;
 
+    let actions = [
+      { text: _config.actionLabels.accept, onPress: () => {
+        RatingsData.recordRated();
+        callback(true, 'accept');
+        Linking.openURL(storeUrl);
+      } },
+      { text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
+      { text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } }
+    ];
+    if ( Platform.OS === 'android' ) {
+      // NOTE: REVERSE ACTIONS TO SHOW (ACCEPT -> DELAY -> DECLINE)
+      actions = actions.reverse();
+    }
+
 		Alert.alert(
 			_config.title,
 			_config.message,
-			[
-        { text: _config.actionLabels.accept, onPress: () => {
-					RatingsData.recordRated();
-					callback(true, 'accept');
-					Linking.openURL(storeUrl);
-				} },
-        { text: _config.actionLabels.delay, onPress: () => { callback(true, 'delay'); } },
-				{ text: _config.actionLabels.decline, onPress: () => { RatingsData.recordDecline(); callback(true, 'decline'); } }
-			]
+			actions
 		);
 	}
 
