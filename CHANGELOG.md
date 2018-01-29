@@ -1,5 +1,11 @@
 A list of changes that have occured through the versions.
 
+3.0.0
+-----
+
+- **Breaking:** Update RN minimum dependency to v0.26 to support `Platform.select()`.
+- Allow changing the order of the buttons on different platforms. Impetus and help from [@yihanseattle](https://github.com/yihanseattle), [@olzhasipsy](https://github.com/olzhasipsy), and [@kesha-antonov](https://github.com/kesha-antonov).
+
 2.1.0
 -----
 
