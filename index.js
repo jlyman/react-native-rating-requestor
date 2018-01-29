@@ -78,7 +78,12 @@ export default class RatingRequestor {
 
     // Merge defaults with user-supplied config
     Object.assign(_config, options);
-    _config.appStoreId = appStoreId;
+		_config.appStoreId = appStoreId;
+		
+		this.storeUrl = Platform.select({
+      ios: `https://itunes.apple.com/us/app/appName/id${_config.appStoreId}`,
+      android: `market://details?id=${_config.appStoreId}`,
+    });
   }
 
   /**
@@ -90,12 +95,6 @@ export default class RatingRequestor {
    * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
    */
   showRatingDialog(callback = () => {}) {
-    const storeUrl = Platform.select({
-			ios: `https://itunes.apple.com/us/app/appName/id${_config.appStoreId}`,
-			android: `market://details?id=${_config.appStoreId}`
-		}); 
-		console.log('store url is:', storeUrl);
-
     const buttonDefaults = {
       NEGATIVE_DECLINE: {
         text: _config.actionLabels.decline,
@@ -115,7 +114,7 @@ export default class RatingRequestor {
         onPress: () => {
           RatingsData.recordRated();
           callback(true, "accept");
-          Linking.openURL(storeUrl);
+          Linking.openURL(this.storeUrl);
         },
         style: "default",
       }
