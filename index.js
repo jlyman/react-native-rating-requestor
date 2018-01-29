@@ -90,12 +90,11 @@ export default class RatingRequestor {
    * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
    */
   showRatingDialog(callback = () => {}) {
-    let storeUrl =
-      Platform.OS === "ios"
-        ? "https://itunes.apple.com/us/app/appName/id" +
-          _config.appStoreId +
-          "?mt=8&action=write-review"
-        : "market://details?id=" + _config.appStoreId;
+    const storeUrl = Platform.select({
+			ios: `https://itunes.apple.com/us/app/appName/id${_config.appStoreId}`,
+			android: `market://details?id=${_config.appStoreId}`
+		}); 
+		console.log('store url is:', storeUrl);
 
     const buttonDefaults = {
       NEGATIVE_DECLINE: {
