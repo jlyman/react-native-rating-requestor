@@ -63,11 +63,11 @@ export default class RatingRequestor {
    * 										delay: {string},
    * 										accept: {string}
    * 									},
-   * 									timingFunction: {func},
-   * 									buttonOrder: {
-   * 										ios: [buttonTypes],
-   * 										android: [buttonTypes],
-   * 									}
+	 * 									buttonOrder: {
+	 * 										ios: [buttonTypes],
+	 * 										android: [buttonTypes],
+	 * 									},
+   * 									timingFunction: {func}
    * 								}
    */
   constructor(appStoreId, options) {
@@ -97,7 +97,7 @@ export default class RatingRequestor {
           "?mt=8&action=write-review"
         : "market://details?id=" + _config.appStoreId;
 
-    const buttons = {
+    const buttonDefaults = {
       NEGATIVE_DECLINE: {
         text: _config.actionLabels.decline,
         onPress: () => {
@@ -118,14 +118,22 @@ export default class RatingRequestor {
           callback(true, "accept");
           Linking.openURL(storeUrl);
         },
-        style: "cancel"
+        style: "default",
       }
-    };
+		};
+		
+		const buttons = Platform.select(_config.buttonOrder).map(bo => buttonDefaults[bo]);
+
+		// Apply a more prominent styling to the default button ordering on iOS
+		if (Platform.select(_config.buttonOrder)[2] === buttonTypes.POSITIVE_ACCEPT) {
+			console.log('Button 3 is:', buttons[2]);
+			buttons[2].style = 'cancel';
+		}
 
     Alert.alert(
       _config.title,
       _config.message,
-      Platform.select(_config.buttonOrder).map(bo => buttons[bo])
+      buttons,
     );
   }
 
