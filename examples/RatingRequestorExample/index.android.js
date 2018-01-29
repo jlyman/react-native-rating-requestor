@@ -1,13 +1,14 @@
 'use strict';
 
-var React = require('react-native');
+var React = require('react');
+var ReactNative = require('react-native');
 var {
 	AppRegistry,
 	StyleSheet,
 	Text,
 	View,
 	TouchableOpacity
-} = React;
+} = ReactNative;
 import RatingRequestor from 'react-native-rating-requestor';
 const RatingTracker = new RatingRequestor('123456789');
 

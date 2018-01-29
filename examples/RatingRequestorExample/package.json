@@ -6,7 +6,8 @@
     "start": "react-native start"
   },
   "dependencies": {
-    "react-native": "^0.20.0",
-    "react-native-rating-requestor": "^1.0.0"
+    "react": "~15.3.2",
+    "react-native": "^0.37.0",
+    "react-native-rating-requestor": "^2.1.0"
   }
 }
