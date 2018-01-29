@@ -124,7 +124,6 @@ export default class RatingRequestor {
 
 		// Apply a more prominent styling to the default button ordering on iOS
 		if (Platform.select(_config.buttonOrder)[2] === buttonTypes.POSITIVE_ACCEPT) {
-			console.log('Button 3 is:', buttons[2]);
 			buttons[2].style = 'cancel';
 		}
 
