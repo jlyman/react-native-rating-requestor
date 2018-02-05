@@ -26,9 +26,9 @@ const _config = {
   },
   buttonOrder: {
     ios: [
-      buttonTypes.NEGATIVE_DECLINE,
+      buttonTypes.POSITIVE_ACCEPT,
       buttonTypes.NEUTRAL_DELAY,
-      buttonTypes.POSITIVE_ACCEPT
+      buttonTypes.NEGATIVE_DECLINE
     ],
     android: [
       buttonTypes.NEGATIVE_DECLINE,
@@ -123,7 +123,7 @@ export default class RatingRequestor {
 		const buttons = Platform.select(_config.buttonOrder).map(bo => buttonDefaults[bo]);
 
 		// Apply a more prominent styling to the default button ordering on iOS
-		if (Platform.select(_config.buttonOrder)[2] === buttonTypes.POSITIVE_ACCEPT) {
+		if (Platform.select(_config.buttonOrder)[2] === buttonTypes.NEGATIVE_DECLINE) {
 			buttons[2].style = 'cancel';
 		}
 
