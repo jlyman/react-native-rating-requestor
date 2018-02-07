@@ -35,7 +35,8 @@ const _config = {
       buttonTypes.NEUTRAL_DELAY,
       buttonTypes.POSITIVE_ACCEPT
     ]
-  }
+  },
+  shouldBoldLastButton: true
 };
 
 async function _isAwaitingRating() {
@@ -66,7 +67,8 @@ export default class RatingRequestor {
 	 * 									buttonOrder: {
 	 * 										ios: [buttonTypes],
 	 * 										android: [buttonTypes],
-	 * 									},
+	 * 									}
+   * 									shouldBoldLastButton: {boolean},
    * 									timingFunction: {func}
    * 								}
    */
@@ -79,7 +81,7 @@ export default class RatingRequestor {
     // Merge defaults with user-supplied config
     Object.assign(_config, options);
 		_config.appStoreId = appStoreId;
-		
+
 		this.storeUrl = Platform.select({
       ios: `https://itunes.apple.com/us/app/appName/id${_config.appStoreId}`,
       android: `market://details?id=${_config.appStoreId}`,
@@ -119,11 +121,10 @@ export default class RatingRequestor {
         style: "default",
       }
 		};
-		
+
 		const buttons = Platform.select(_config.buttonOrder).map(bo => buttonDefaults[bo]);
 
-		// Apply a more prominent styling to the default button ordering on iOS
-		if (Platform.select(_config.buttonOrder)[2] === buttonTypes.POSITIVE_ACCEPT) {
+		if (_config.shouldBoldLastButton) {
 			buttons[2].style = 'cancel';
 		}
 
