@@ -10,7 +10,9 @@ var {
 	TouchableOpacity
 } = ReactNative;
 import RatingRequestor from 'react-native-rating-requestor';
-const RatingTracker = new RatingRequestor('123456789');
+const RatingTracker = new RatingRequestor("123456789", {
+	shouldBoldLastButton: true
+});
 
 var RatingRequestorExample = React.createClass({
 
