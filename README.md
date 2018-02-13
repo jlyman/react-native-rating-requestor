@@ -70,6 +70,7 @@ You *must* pass in a string as the first parameter, which is the app store ID of
       ios: [buttonTypes],
       android: [buttonTypes],
     },
+    shouldBoldLastButton: {boolean},
     timingFunction: {func(currentCount) => boolean}
   }
 ````
@@ -82,6 +83,7 @@ You *must* pass in a string as the first parameter, which is the app store ID of
   - `accept`: The "oh my gosh I love this app so much so I'll rate it right now" button label
 - `buttonOrder`: An object with platform keys (`ios` and `android` or others), with the value of each key being an array of length 3 containing `buttonType` values, which can be imported from the package. This defines the order the buttons will appear on the dialog. The default order for both platforms is as follows:
   - `[buttonTypes.NEGATIVE_DECLINE, buttonTypes.NEUTRAL_DELAY, buttonTypes.POSITIVE_ACCEPT]`
+- `shouldBoldLastButton`: If passed as true, the third button of the modal will have a more prominent style. This option currently only modifies iOS styling
 - `timingFunction`: A method that takes the current total count of positive events recorded for the app, and returns if the Requestor should display the dialog or not. By default, the timingFunction evaluates as `3^n`, and if `3^n == currentCount` then it returns true/shows the dialog. Source looks like this:
 
 ```javascript
