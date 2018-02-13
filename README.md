@@ -98,6 +98,7 @@ As of version 2.0.0 this package is compatible with both iOS and Android.
 
 ## Releases
 
+- 3.1.0 - Formalize the `shouldBoldLastButton` option. Props to [@ttargo1](https://github.com/ttargo1)
 - 3.0.0 - Allow changing the order of the buttons on different platforms. Impetus and help from [@yihanseattle](https://github.com/yihanseattle), [@olzhasipsy](https://github.com/olzhasipsy), and [@kesha-antonov](https://github.com/kesha-antonov), and update the minimum RN dep to v0.26.
 - 2.1.0 - Update the iOS store URL for iOS 11 compatibility thanks to [@rodrigopk](https://github.com/rodrigopk)
 - 2.0.0 - Supports Android, requires RN v0.20.0+, and added `showRatingDialog()` thanks to [@maximilianhurl](https://github.com/maximilianhurl).

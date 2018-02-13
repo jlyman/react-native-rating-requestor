@@ -1,5 +1,10 @@
 A list of changes that have occured through the versions.
 
+3.1.0
+-----
+
+- Formalize the `shouldBoldLastButton` so that it's less a mystery. Props to [@ttargo1](https://github.com/ttargo1).
+
 3.0.0
 -----
 
