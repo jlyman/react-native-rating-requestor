@@ -1,5 +1,10 @@
 A list of changes that have occured through the versions.
 
+3.2.0
+-----
+
+- Allow iOS country store and app name to be set. Props to [@andreleon](https://github.com/andreleon)
+
 3.1.0
 -----
 

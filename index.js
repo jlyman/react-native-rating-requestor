@@ -71,6 +71,8 @@ export default class RatingRequestor {
 	 * 										android: [buttonTypes],
 	 * 									}
    * 									shouldBoldLastButton: {boolean},
+   *                  storeAppName: {string},
+   *                  storeCountry: {string},
    * 									timingFunction: {func}
    * 								}
    */

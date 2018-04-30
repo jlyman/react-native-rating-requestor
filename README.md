@@ -71,6 +71,8 @@ You *must* pass in a string as the first parameter, which is the app store ID of
       android: [buttonTypes],
     },
     shouldBoldLastButton: {boolean},
+    storeAppName: {string},
+    storeCountry: {string},
     timingFunction: {func(currentCount) => boolean}
   }
 ````
@@ -84,6 +86,8 @@ You *must* pass in a string as the first parameter, which is the app store ID of
 - `buttonOrder`: An object with platform keys (`ios` and `android` or others), with the value of each key being an array of length 3 containing `buttonType` values, which can be imported from the package. This defines the order the buttons will appear on the dialog. The default order for both platforms is as follows:
   - `[buttonTypes.NEGATIVE_DECLINE, buttonTypes.NEUTRAL_DELAY, buttonTypes.POSITIVE_ACCEPT]`
 - `shouldBoldLastButton`: If passed as true, the third button of the modal will have a more prominent style. This option currently only modifies iOS styling
+- `storeAppName`: iOS only, the slug that Apple uses in the URL to the app listing. Anything seems to work here, including the default `appName`, but might as well make it match what Apple has, right?
+- `storeCountry`: Target a specific coutry's store, defaults to `us`.
 - `timingFunction`: A method that takes the current total count of positive events recorded for the app, and returns if the Requestor should display the dialog or not. By default, the timingFunction evaluates as `3^n`, and if `3^n == currentCount` then it returns true/shows the dialog. Source looks like this:
 
 ```javascript
@@ -98,6 +102,7 @@ As of version 2.0.0 this package is compatible with both iOS and Android.
 
 ## Releases
 
+- 3.2.0 - Allow iOS country store and app name to be set. Props to [@andreleon](https://github.com/andreleon)
 - 3.1.0 - Formalize the `shouldBoldLastButton` option. Props to [@ttargo1](https://github.com/ttargo1)
 - 3.0.0 - Allow changing the order of the buttons on different platforms. Impetus and help from [@yihanseattle](https://github.com/yihanseattle), [@olzhasipsy](https://github.com/olzhasipsy), and [@kesha-antonov](https://github.com/kesha-antonov), and update the minimum RN dep to v0.26.
 - 2.1.0 - Update the iOS store URL for iOS 11 compatibility thanks to [@rodrigopk](https://github.com/rodrigopk)
