@@ -36,7 +36,9 @@ const _config = {
       buttonTypes.POSITIVE_ACCEPT
     ]
   },
-  shouldBoldLastButton: true
+  shouldBoldLastButton: true,
+  storeAppName: 'appName',
+  storeCountry: 'us'
 };
 
 async function _isAwaitingRating() {
@@ -83,7 +85,7 @@ export default class RatingRequestor {
 		_config.appStoreId = appStoreId;
 
 		this.storeUrl = Platform.select({
-      ios: `https://itunes.apple.com/us/app/appName/id${_config.appStoreId}`,
+      ios: `https://itunes.apple.com/${_config.storeCountry}/app/${_config.storeAppName}/id${_config.appStoreId}`,
       android: `market://details?id=${_config.appStoreId}`,
     });
   }
