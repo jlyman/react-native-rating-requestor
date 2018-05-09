@@ -86,6 +86,7 @@ export default class RatingRequestor {
     Object.assign(_config, options);
 		_config.appStoreId = appStoreId;
 
+    console.log(_config.appStoreId);
 		this.storeUrl = Platform.select({
       ios: `https://itunes.apple.com/${_config.storeCountry}/app/${_config.storeAppName}/id${_config.appStoreId}`,
       android: `market://details?id=${_config.appStoreId}`,
