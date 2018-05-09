@@ -88,7 +88,7 @@ export default class RatingRequestor {
 
 		this.storeUrl = Platform.select({
       ios: `https://itunes.apple.com/${_config.storeCountry}/app/${_config.storeAppName}/id${_config.appStoreId}`,
-      android: `market://details?id=${_config.appStoreId}`,
+      android: `https://play.google.com/store/apps/details?id=${_config.appStoreId}`,
     });
   }
 
