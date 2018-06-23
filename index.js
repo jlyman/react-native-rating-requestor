@@ -119,8 +119,10 @@ export default class RatingRequestor {
         text: _config.actionLabels.accept,
         onPress: () => {
           RatingsData.recordRated();
-          callback(true, "accept");
-          Linking.openURL(this.storeUrl);
+          let res = callback(true, "accept");
+          if (res !== false) {
+            Linking.openURL(this.storeUrl);
+          }
         },
         style: "default",
       }
