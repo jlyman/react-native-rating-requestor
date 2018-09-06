@@ -2,46 +2,59 @@
 
 A React Native component to prompt users for a rating after positive interactions
 
-The Rating Requestor is a very simple JS module that you simply instantiate and call from time to time, as your user performs actions that result in a "happy path." For example, maybe your users get a smile on their face every time they save money with your app, beat a level, or clear out their inbox. After a certain number of these positive events, it might be a good time to ask the user for a review. 
+The Rating Requestor is a very simple JS module that you simply instantiate and call from time to time, as your user performs actions that result in a "happy path." For example, maybe your users get a smile on their face every time they save money with your app, beat a level, or clear out their inbox. After a certain number of these positive events, it might be a good time to ask the user for a review.
 
 ## Installation
 
     npm i --save react-native-rating-requestor
 
+### iOS
+
+#### Using Pod (Recommended)
+
+    pod 'react-native-rating-requestor', :path => '../node_modules/react-native-rating-requestor'
+
+#### Linking using react-native link
+
+    $ react-native link
+
+**PS:** Above iOS 10.3+ we have StoreKit to managing the ratings. For other versions of iOS and android we are redirecting to specific store using alerts.
+
 ## Usage
 
 Import and create a new instantiation of the Rating Requestor somewhere in the main portion of your application:
 
-````javascript
+```javascript
     import RatingRequestor from 'react-native-rating-requestor';
     let RatingTracker = new RatingRequestor('[your apps store ID]');
 
     let MyApp = React.createClass({ ... });
-````
+```
+
 When a positive UX event occurs, let the Rating Requestor know so that it can keep track of these:
 
-````javascript
-	if (user_saved_the_world) {
-		RatingTracker.handlePositiveEvent();
-	}
-````
+```javascript
+if (user_saved_the_world) {
+	RatingTracker.handlePositiveEvent();
+}
+```
 
 The example above is used without callback. A callback can be provided that reports on result of the handling. The callback accepts two parameters: the first indicates whether the request dialog appeared (boolean), and the second returns the user decision (string: 'decline', 'delay', or 'accept').
 
-	if (user_saved_the_world) {
-		RatingTracker.handlePositiveEvent(function(didAppear, userDecision) {
-			if (didAppear) {
-				switch(userDecision)
-				{
-					case 'decline': console.log('User declined to rate'); break;
-					case 'delay'  : console.log('User delayed rating, will be asked later'); break;
-					case 'accept' : console.log('User accepted invitation to rate, redirected to app store'); break;
-				}
-			} else {
-				console.log('Request popup did not pop up. May appear on future positive events.');
-			} 
-		});
-	}
+    if (user_saved_the_world) {
+    	RatingTracker.handlePositiveEvent(function(didAppear, userDecision) {
+    		if (didAppear) {
+    			switch(userDecision)
+    			{
+    				case 'decline': console.log('User declined to rate'); break;
+    				case 'delay'  : console.log('User delayed rating, will be asked later'); break;
+    				case 'accept' : console.log('User accepted invitation to rate, redirected to app store'); break;
+    			}
+    		} else {
+    			console.log('Request popup did not pop up. May appear on future positive events.');
+    		}
+    	});
+    }
 
 If enough positive events have occurred (defined by the `timingFunction`) then a rating dialog will pop up. The user can rate the app or decline to rate, in which case they won't be bothered again, or can choose to maybe do so later, in which case the Rating Requestor will keep on tracking positive event counts.
 
@@ -49,15 +62,15 @@ You can also trigger the rating dialog to appear immediately by invoking `Rating
 
 ## Configuration
 
-All configuration occurs on the construction of a new RatingRequestor. 
+All configuration occurs on the construction of a new RatingRequestor.
 
-````javascript
-    let myRR = new RatingRequestor(appStoreId, [ options ]);
-````
+```javascript
+let myRR = new RatingRequestor(appStoreId, [options]);
+```
 
-You *must* pass in a string as the first parameter, which is the app store ID of your application. Optionally, but highly suggested, is a second parameter: a set of options to customize the request dialog and the timing of the dialog. This object follows this pattern:
+You _must_ pass in a string as the first parameter, which is the app store ID of your application. Optionally, but highly suggested, is a second parameter: a set of options to customize the request dialog and the timing of the dialog. This object follows this pattern:
 
-````javascript
+```javascript
   {
     title: {string},
     message: {string},
@@ -75,7 +88,7 @@ You *must* pass in a string as the first parameter, which is the app store ID of
     storeCountry: {string},
     timingFunction: {func(currentCount) => boolean}
   }
-````
+```
 
 - `title`: A string used as the title for the dialog (e.g., "Please rate me!")
 - `message`: The message you'd like to show the user (e.g., "If you are loving [my app's name], would you please leave me a positive review?")

@@ -1,34 +1,38 @@
 {
-  "name": "react-native-rating-requestor",
-  "version": "3.2.0",
-  "description": "A React Native component to prompt users for a rating after positive interactions",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prep-example": "cp ./* examples/RatingRequestorExample/node_modules/react-native-rating-requestor/",
-    "example-ios": "npm run prep-example; cd examples/RatingRequestorExample; react-native run-ios",
-    "example-android": "npm run prep-example; cd examples/RatingRequestorExample; react-native run-android"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jlyman/react-native-rating-requestor.git"
-  },
-  "keywords": [
-    "react",
-    "react-component",
-    "react-native",
-    "ios",
-    "android",
-    "ratings",
-    "reviews"
-  ],
-  "author": "Joshua Lyman",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jlyman/react-native-rating-requestor/issues"
-  },
-  "homepage": "https://github.com/jlyman/react-native-rating-requestor#readme",
-  "peerDependencies": {
-    "react-native": ">= 0.26.0"
-  }
+	"name": "react-native-rating-requestor",
+	"version": "3.2.0",
+	"description": "A React Native component to prompt users for a rating after positive interactions",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prep-example": "cp ./* examples/RatingRequestorExample/node_modules/react-native-rating-requestor/",
+		"example-ios": "npm run prep-example; cd examples/RatingRequestorExample; react-native run-ios",
+		"example-android": "npm run prep-example; cd examples/RatingRequestorExample; react-native run-android"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jlyman/react-native-rating-requestor.git"
+	},
+	"keywords": [
+		"react",
+		"react-component",
+		"react-native",
+		"ios",
+		"android",
+		"ratings",
+		"reviews"
+	],
+	"author": "Joshua Lyman",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/jlyman/react-native-rating-requestor/issues"
+	},
+	"homepage": "https://github.com/jlyman/react-native-rating-requestor#readme",
+	"peerDependencies": {
+		"react-native": ">= 0.26.0"
+	},
+	"dependencies": {
+		"react": "16.3.0",
+		"react-native": "0.55.4"
+	}
 }
