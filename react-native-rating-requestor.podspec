@@ -5,10 +5,10 @@ package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 Pod::Spec.new do |s|
   s.name         = "react-native-rating-requestor"
   s.version      = package["version"]
-  s.summary      = ""
+  s.summary      = "Use this component with POD"
   s.author       = "Brent Vatne <brentvatne@gmail.com> (https://github.com/brentvatne)"
 
-  s.homepage     = package["repository"]["url"]
+  s.homepage     = "https://github.com/jlyman/react-native-rating-requestor"
 
   s.license      = "MIT"
 
