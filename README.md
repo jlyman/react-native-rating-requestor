@@ -102,6 +102,7 @@ As of version 2.0.0 this package is compatible with both iOS and Android.
 
 ## Releases
 
+- 3.2.1 - Remove unnecessary `console.log` call. Props to [@nlively](https://github.com/nlively)
 - 3.2.0 - Allow iOS country store and app name to be set. Props to [@andreleon](https://github.com/andreleon)
 - 3.1.0 - Formalize the `shouldBoldLastButton` option. Props to [@ttargo1](https://github.com/ttargo1)
 - 3.0.0 - Allow changing the order of the buttons on different platforms. Impetus and help from [@yihanseattle](https://github.com/yihanseattle), [@olzhasipsy](https://github.com/olzhasipsy), and [@kesha-antonov](https://github.com/kesha-antonov), and update the minimum RN dep to v0.26.

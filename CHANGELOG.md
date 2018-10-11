@@ -1,5 +1,10 @@
 A list of changes that have occured through the versions.
 
+3.2.1
+-----
+
+- Remove `console.log` call that was unnecessarily cluttering up output, especially in tests. Props to [@nlively](https://github.com/nlively)
+
 3.2.0
 -----
 
