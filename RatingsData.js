@@ -69,8 +69,6 @@ class RatingsData {
 			let keys = await AsyncStorage.getAllKeys();
 
 			if (!keys.some((key) => key === eventCountKey)) {
-				// TODO: I don't think this actually ever gets executed...
-				console.log('Initializing blank values...');
 				await AsyncStorage.setItem(eventCountKey, '0');
 			}
 		} catch (ex) {
