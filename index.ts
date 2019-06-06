@@ -1,14 +1,45 @@
-import React, { Platform, Alert, Linking } from "react-native";
+import { Platform, Alert, Linking, AlertButton } from "react-native";
 
 import RatingsData from "./RatingsData";
 
-export const buttonTypes = {
-  NEUTRAL_DELAY: "NEUTRAL_DELAY",
-  NEGATIVE_DECLINE: "NEGATIVE_DECLINE",
-  POSITIVE_ACCEPT: "POSITIVE_ACCEPT"
+type ButtonType = "NEUTRAL_DELAY" | "NEGATIVE_DECLINE" | "POSITIVE_ACCEPT";
+
+type RatingRequestorCallback = (
+  didAppear: boolean,
+  decision?: "decline" | "delay" | "accept"
+) => void;
+
+type RatingRequestorOptions = {
+  title: string;
+  message: string;
+  actionLabels: {
+    decline: string;
+    delay: string;
+    accept: string;
+  };
+  buttonOrder: {
+    ios: ButtonType[];
+    android: ButtonType[];
+  };
+  shouldBoldLastButton: boolean;
+  storeAppName: string;
+  storeCountry: string;
+  timingFunction: (currentCount: number) => boolean;
 };
 
-const _config = {
+type ButtonDefaults = Record<ButtonType, AlertButton>;
+
+interface Config extends RatingRequestorOptions {
+  appStoreId: string | null;
+}
+
+export enum ButtonTypes {
+  NEUTRAL_DELAY = "NEUTRAL_DELAY",
+  NEGATIVE_DECLINE = "NEGATIVE_DECLINE",
+  POSITIVE_ACCEPT = "POSITIVE_ACCEPT"
+}
+
+const _config: Config = {
   title: "Rate Me",
   message:
     "We hope you're loving our app. If you are, would you mind taking a quick moment to leave us a positive review?",
@@ -18,36 +49,39 @@ const _config = {
     delay: "Maybe later...",
     accept: "Sure!"
   },
-  timingFunction: function(currentCount) {
+  timingFunction: function(currentCount: number) {
     return (
       currentCount > 1 &&
-      (Math.log(currentCount) / Math.log(3)).toFixed(4) % 1 == 0
+      parseInt((Math.log(currentCount) / Math.log(3)).toFixed(4)) % 1 == 0
     );
   },
   buttonOrder: {
     ios: [
-      buttonTypes.NEGATIVE_DECLINE,
-      buttonTypes.NEUTRAL_DELAY,
-      buttonTypes.POSITIVE_ACCEPT
+      ButtonTypes.NEGATIVE_DECLINE,
+      ButtonTypes.NEUTRAL_DELAY,
+      ButtonTypes.POSITIVE_ACCEPT
     ],
     android: [
-      buttonTypes.NEGATIVE_DECLINE,
-      buttonTypes.NEUTRAL_DELAY,
-      buttonTypes.POSITIVE_ACCEPT
+      ButtonTypes.NEGATIVE_DECLINE,
+      ButtonTypes.NEUTRAL_DELAY,
+      ButtonTypes.POSITIVE_ACCEPT
     ]
   },
   shouldBoldLastButton: true,
-  storeAppName: 'appName',
-  storeCountry: 'us'
+  storeAppName: "appName",
+  storeCountry: "us"
 };
 
 async function _isAwaitingRating() {
   let timestamps = await RatingsData.getActionTimestamps();
 
   // If no timestamps have been set yet we are still awaiting the user, return true
-  return timestamps.every(timestamp => {
-    return timestamp[1] === null;
-  });
+  return (
+    timestamps &&
+    timestamps.every(timestamp => {
+      return timestamp[1] === null;
+    })
+  );
 }
 
 /**
@@ -55,6 +89,8 @@ async function _isAwaitingRating() {
  * @class
  */
 export default class RatingRequestor {
+  storeUrl: string;
+
   /**
    * @param  {string} appStoreId - Required. The ID used in the app's respective app store
    * @param  {object} options - Optional. Override the defaults. Takes the following shape, with all elements being optional:
@@ -66,17 +102,17 @@ export default class RatingRequestor {
    * 										delay: {string},
    * 										accept: {string}
    * 									},
-	 * 									buttonOrder: {
-	 * 										ios: [buttonTypes],
-	 * 										android: [buttonTypes],
-	 * 									}
+   * 									buttonOrder: {
+   * 										ios: [buttonTypes],
+   * 										android: [buttonTypes],
+   * 									}
    * 									shouldBoldLastButton: {boolean},
    *                  storeAppName: {string},
    *                  storeCountry: {string},
    * 									timingFunction: {func}
    * 								}
    */
-  constructor(appStoreId, options) {
+  constructor(appStoreId: string, options: Partial<RatingRequestorOptions>) {
     // Check for required options
     if (!appStoreId) {
       throw "You must specify your app's store ID on construction to use the Rating Requestor.";
@@ -84,11 +120,13 @@ export default class RatingRequestor {
 
     // Merge defaults with user-supplied config
     Object.assign(_config, options);
-		_config.appStoreId = appStoreId;
+    _config.appStoreId = appStoreId;
 
-		this.storeUrl = Platform.select({
-      ios: `https://itunes.apple.com/${_config.storeCountry}/app/${_config.storeAppName}/id${_config.appStoreId}`,
-      android: `market://details?id=${_config.appStoreId}`,
+    this.storeUrl = Platform.select({
+      ios: `https://itunes.apple.com/${_config.storeCountry}/app/${
+        _config.storeAppName
+      }/id${_config.appStoreId}`,
+      android: `market://details?id=${_config.appStoreId}`
     });
   }
 
@@ -100,8 +138,8 @@ export default class RatingRequestor {
    *
    * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
    */
-  showRatingDialog(callback = () => {}) {
-    const buttonDefaults = {
+  showRatingDialog(callback: RatingRequestorCallback = () => {}) {
+    const buttonDefaults: ButtonDefaults = {
       NEGATIVE_DECLINE: {
         text: _config.actionLabels.decline,
         onPress: () => {
@@ -122,21 +160,19 @@ export default class RatingRequestor {
           callback(true, "accept");
           Linking.openURL(this.storeUrl);
         },
-        style: "default",
+        style: "default"
       }
-		};
+    };
 
-		const buttons = Platform.select(_config.buttonOrder).map(bo => buttonDefaults[bo]);
-
-		if (_config.shouldBoldLastButton) {
-			buttons[2].style = 'cancel';
-		}
-
-    Alert.alert(
-      _config.title,
-      _config.message,
-      buttons,
+    const buttons = Platform.select(_config.buttonOrder).map(
+      (bo: ButtonType) => buttonDefaults[bo]
     );
+
+    if (_config.shouldBoldLastButton) {
+      buttons[2].style = "cancel";
+    }
+
+    Alert.alert(_config.title, _config.message, buttons);
   }
 
   /**
@@ -145,11 +181,11 @@ export default class RatingRequestor {
    *
    * @param {function(didAppear: boolean, result: string)} callback Optional. Callback that reports whether the dialog appeared and what the result was.
    */
-  async handlePositiveEvent(callback = () => {}) {
+  async handlePositiveEvent(callback: RatingRequestorCallback = () => {}) {
     if (await _isAwaitingRating()) {
       let currentCount = await RatingsData.incrementCount();
 
-      if (_config.timingFunction(currentCount)) {
+      if (currentCount && _config.timingFunction(currentCount)) {
         this.showRatingDialog(callback);
       } else callback(false);
     } else callback(false);
