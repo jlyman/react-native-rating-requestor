@@ -1,5 +1,11 @@
 A list of changes that have occured through the versions.
 
+4.0.0
+-----
+
+- Minimum RN version compatibility now at 0.57+
+- Switch to using community AsyncStorage because of Lean Core. Props to [@imranariffin](https://github.com/imranariffin)
+
 3.2.1
 -----
 

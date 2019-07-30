@@ -8,6 +8,8 @@ The Rating Requestor is a very simple JS module that you simply instantiate and 
 
     npm i --save react-native-rating-requestor
 
+Note there is a peer dependency on [react-native-community/async-storage](https://github.com/react-native-community/async-storage). You may also need to link in the native modules, which varies depending on the version of React Native you are using.
+
 ## Usage
 
 Import and create a new instantiation of the Rating Requestor somewhere in the main portion of your application:
@@ -102,6 +104,9 @@ As of version 2.0.0 this package is compatible with both iOS and Android.
 
 ## Releases
 
+For more details, see CHANGELOG.md.
+
+- 4.0.0 - Minimum RN version compatibility now at 0.57+, use community AsyncStorage (props to [@imranariffin](https://github.com/imranariffin))
 - 3.2.1 - Remove unnecessary `console.log` call. Props to [@nlively](https://github.com/nlively)
 - 3.2.0 - Allow iOS country store and app name to be set. Props to [@andreleon](https://github.com/andreleon)
 - 3.1.0 - Formalize the `shouldBoldLastButton` option. Props to [@ttargo1](https://github.com/ttargo1)
