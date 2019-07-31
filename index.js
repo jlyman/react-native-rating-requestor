@@ -120,7 +120,12 @@ export default class RatingRequestor {
         onPress: () => {
           RatingsData.recordRated();
           callback(true, "accept");
-          Linking.openURL(this.storeUrl);
+          // This API is only available on iOS 10.3 or later
+					if (Platform.OS === 'ios' && StoreReview.isAvailable) {
+						StoreReview.requestReview();
+					} else {
+						Linking.openURL(storeUrl);
+					}
         },
         style: "default",
       }
@@ -136,12 +141,6 @@ export default class RatingRequestor {
       _config.title,
       _config.message,
       buttons,
-					// This API is only available on iOS 10.3 or later
-					if (Platform.OS === 'ios' && StoreReview.isAvailable) {
-						StoreReview.requestReview();
-					} else {
-						Linking.openURL(storeUrl);
-					}
     );
   }
 

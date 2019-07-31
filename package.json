@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prep-example": "cp ./* examples/RatingRequestorExample/node_modules/react-native-rating-requestor/",
-    "example-ios": "npm run prep-example; cd examples/RatingRequestorExample; react-native run-ios",
+    "prep-example": "mkdir examples/RatingRequestorExample/node_modules/react-native-rating-requestor/; cp ./* examples/RatingRequestorExample/node_modules/react-native-rating-requestor/",
+    "example-ios": "npm run prep-example; cd examples/RatingRequestorExample/ios; pod install; cd ..; react-native run-ios",
     "example-android": "npm run prep-example; cd examples/RatingRequestorExample; react-native run-android"
   },
   "repository": {
@@ -29,10 +29,8 @@
   },
   "homepage": "https://github.com/jlyman/react-native-rating-requestor#readme",
   "peerDependencies": {
+    "@react-native-community/async-storage": "^1.4.2",
     "react-native": ">= 0.57.0",
-    "@react-native-community/async-storage": "^1.4.2"
-  },
-  "dependencies": {
-    "react-native-store-review": "^0.1.2"
+    "react-native-store-review": "^0.1.5"
   }
 }
