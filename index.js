@@ -1,4 +1,4 @@
-import React, { Platform, Alert, Linking } from "react-native";
+import { Platform, Alert, Linking } from "react-native";
 
 import RatingsData from "./RatingsData";
 
