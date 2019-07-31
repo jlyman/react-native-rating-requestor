@@ -5,6 +5,7 @@ A list of changes that have occured through the versions.
 
 - *Breaking:* Minimum RN version compatibility now at 0.57+
 - *Breaking:* Switch to using community AsyncStorage because of Lean Core, so it's now a peer dependency. Props to [@imranariffin](https://github.com/imranariffin)
+- Uses the native SKStoreReview dialog on iOS 10.3+. Props to [@jasonlfunk](https://github.com/jasonlfunk)
 
 3.2.1
 -----

@@ -8,7 +8,13 @@ The Rating Requestor is a very simple JS module that you simply instantiate and 
 
     npm i --save react-native-rating-requestor
 
-Note there is a peer dependency on [react-native-community/async-storage](https://github.com/react-native-community/async-storage). You may also need to link in the native modules, which varies depending on the version of React Native you are using.
+You'll probably also want to install the peer dependencies as well: 
+
+    npm i --save @react-native-community/async-storage react-native-store-review
+
+ You may also need to `link` in or `pod install` the native modules from the peer dependencies, which varies depending on the version of React Native you are using.
+
+ *(If anyone has a better way of managing the native modules of these peer dependencies, definitely open an issue and let me know!)*
 
 ## Usage
 
@@ -48,6 +54,12 @@ The example above is used without callback. A callback can be provided that repo
 If enough positive events have occurred (defined by the `timingFunction`) then a rating dialog will pop up. The user can rate the app or decline to rate, in which case they won't be bothered again, or can choose to maybe do so later, in which case the Rating Requestor will keep on tracking positive event counts.
 
 You can also trigger the rating dialog to appear immediately by invoking `RatingTracker.showRatingDialog([callback])`. If you have a "Rate this App" button or link in an about page or something in your app, this would be a good place to use that.
+
+### iOS Native Dialog
+
+When on iOS 10.3+, if the user agrees to leave a review then it will trigger the native star picker dialog built in to iOS. This is a definite improvement! However it's not foolproof. Because iOS ultimately makes the decision to show the dialog or not, there is a small chance that the user may agree to review the app, but because they've already seen the dialog recently, it may not appear. Caveat emptor. In most cases, though, this should work out better than before.
+
+This is accompished by using [react-native-store](https://github.com/oblador/react-native-store-review), a peer dependency of the library.
 
 ## Configuration
 
@@ -106,7 +118,7 @@ As of version 2.0.0 this package is compatible with both iOS and Android.
 
 For more details, see CHANGELOG.md.
 
-- 4.0.0 - Minimum RN version compatibility now at 0.57+, use community AsyncStorage (props to [@imranariffin](https://github.com/imranariffin))
+- 4.0.0 - Minimum RN version compatibility now at 0.57+, use community AsyncStorage (props to [@imranariffin](https://github.com/imranariffin)), use iOS native review request dialog (props to [@jasonlfunk](https://github.com/jasonlfunk))
 - 3.2.1 - Remove unnecessary `console.log` call. Props to [@nlively](https://github.com/nlively)
 - 3.2.0 - Allow iOS country store and app name to be set. Props to [@andreleon](https://github.com/andreleon)
 - 3.1.0 - Formalize the `shouldBoldLastButton` option. Props to [@ttargo1](https://github.com/ttargo1)
