@@ -83,6 +83,8 @@ PODS:
     - React-fishhook (= 0.60.4)
   - RNCAsyncStorage (1.6.1):
     - React
+  - RNStoreReview (0.1.5):
+    - React
   - yoga (0.60.4.React)
 
 DEPENDENCIES:
@@ -108,6 +110,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - RNStoreReview (from `../node_modules/react-native-store-review/ios`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -159,6 +162,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/WebSocket"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
+  RNStoreReview:
+    :path: "../node_modules/react-native-store-review/ios"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -186,6 +191,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 0bea40cd51bd089bd591a8f74c86e91fdf2666c5
   React-RCTWebSocket: 163873f4cdd5f1058a9483443404fc3801581cb6
   RNCAsyncStorage: 621bad7a889b5bf1583a52547f2dcd3a4d1ff15e
+  RNStoreReview: 62d6afd7c37db711a594bbffca6b0ea3a812b7a8
   yoga: c2c050f6ae6e222534760cc82f559b89214b67e2
 
 PODFILE CHECKSUM: bf8ca3c964ea4adf762bcbdaf10e50f9db73ba79
