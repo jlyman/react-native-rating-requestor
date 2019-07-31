@@ -1,13 +1,29 @@
 {
   "name": "RatingRequestorExample",
-  "version": "0.0.1",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
-    "start": "react-native start"
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "react": "~15.3.2",
-    "react-native": "^0.37.0",
-    "react-native-rating-requestor": "^3.2.0"
+    "@react-native-community/async-storage": "^1.6.1",
+    "react": "16.8.6",
+    "react-native": "0.60.4",
+    "react-native-rating-requestor": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.8.0",
+    "eslint": "^6.1.0",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.55.0",
+    "react-test-renderer": "16.8.6"
+  },
+  "jest": {
+    "preset": "react-native"
   }
 }
