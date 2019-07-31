@@ -31,5 +31,8 @@
   "peerDependencies": {
     "react-native": ">= 0.57.0",
     "@react-native-community/async-storage": "^1.4.2"
+  },
+  "dependencies": {
+    "react-native-store-review": "^0.1.2"
   }
 }
