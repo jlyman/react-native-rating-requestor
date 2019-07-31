@@ -11,7 +11,7 @@
     "@react-native-community/async-storage": "^1.6.1",
     "react": "16.8.6",
     "react-native": "0.60.4",
-    "react-native-rating-requestor": "file:../..",
+    "react-native-rating-requestor": "^4.0.0",
     "react-native-store-review": "^0.1.5"
   },
   "devDependencies": {
