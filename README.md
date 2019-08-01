@@ -22,9 +22,9 @@ Import and create a new instantiation of the Rating Requestor somewhere in the m
 
 ````javascript
     import RatingRequestor from 'react-native-rating-requestor';
-    let RatingTracker = new RatingRequestor('[your apps store ID]');
+    const RatingTracker = new RatingRequestor('[your apps store ID]');
 
-    let MyApp = React.createClass({ ... });
+    const MyApp = () => {...};
 ````
 When a positive UX event occurs, let the Rating Requestor know so that it can keep track of these:
 
@@ -36,6 +36,7 @@ When a positive UX event occurs, let the Rating Requestor know so that it can ke
 
 The example above is used without callback. A callback can be provided that reports on result of the handling. The callback accepts two parameters: the first indicates whether the request dialog appeared (boolean), and the second returns the user decision (string: 'decline', 'delay', or 'accept').
 
+````javascript
 	if (user_saved_the_world) {
 		RatingTracker.handlePositiveEvent(function(didAppear, userDecision) {
 			if (didAppear) {
@@ -49,24 +50,25 @@ The example above is used without callback. A callback can be provided that repo
 				console.log('Request popup did not pop up. May appear on future positive events.');
 			} 
 		});
-	}
+  }
+````
 
-If enough positive events have occurred (defined by the `timingFunction`) then a rating dialog will pop up. The user can rate the app or decline to rate, in which case they won't be bothered again, or can choose to maybe do so later, in which case the Rating Requestor will keep on tracking positive event counts.
+If enough positive events have occurred (defined by the `timingFunction`, see "Configuration") then a rating dialog will appear. The user can rate the app or decline to rate, in which case they won't be bothered again, or can choose to maybe do so later, in which case the Rating Requestor will keep on tracking positive event counts.
 
 You can also trigger the rating dialog to appear immediately by invoking `RatingTracker.showRatingDialog([callback])`. If you have a "Rate this App" button or link in an about page or something in your app, this would be a good place to use that.
 
 ### iOS Native Dialog
 
-When on iOS 10.3+, if the user agrees to leave a review then it will trigger the native star picker dialog built in to iOS. This is a definite improvement! However it's not foolproof. Because iOS ultimately makes the decision to show the dialog or not, there is a small chance that the user may agree to review the app, but because they've already seen the dialog recently, it may not appear. Caveat emptor. In most cases, though, this should work out better than before.
+When on iOS 10.3+, if the user agrees to leave a review then it will trigger the native star picker dialog (SKStoreReviewController) built in to iOS. This is a definite improvement! However it's not foolproof. Because iOS ultimately makes the decision whether to show the dialog or not, there is a small chance that the user may agree to review the app, but because they've already seen the dialog recently, it may not appear. *Caveat emptor.* In most cases, though, this should work out better than before, because it immediately shows the star buttons instead of linking to the store first.
 
-This is accompished by using [react-native-store](https://github.com/oblador/react-native-store-review), a peer dependency of the library.
+This is accompished by using [react-native-store](https://github.com/oblador/react-native-store-review), a peer dependency of this package.
 
 ## Configuration
 
 All configuration occurs on the construction of a new RatingRequestor. 
 
 ````javascript
-    let myRR = new RatingRequestor(appStoreId, [ options ]);
+    const myRR = new RatingRequestor(appStoreId, [ options ]);
 ````
 
 You *must* pass in a string as the first parameter, which is the app store ID of your application. Optionally, but highly suggested, is a second parameter: a set of options to customize the request dialog and the timing of the dialog. This object follows this pattern:
@@ -114,10 +116,13 @@ timingFunction: function(currentCount) {
 
 As of version 2.0.0 this package is compatible with both iOS and Android.
 
+Peer dependencies and linking may be required, depending on your app and version of React Native.
+
 ## Releases
 
 For more details, see CHANGELOG.md.
 
+- 4.0.1 - Fix for missing `storeUrl`.
 - 4.0.0 - Minimum RN version compatibility now at 0.57+, use community AsyncStorage (props to [@imranariffin](https://github.com/imranariffin)), use iOS native review request dialog (props to [@jasonlfunk](https://github.com/jasonlfunk))
 - 3.2.1 - Remove unnecessary `console.log` call. Props to [@nlively](https://github.com/nlively)
 - 3.2.0 - Allow iOS country store and app name to be set. Props to [@andreleon](https://github.com/andreleon)

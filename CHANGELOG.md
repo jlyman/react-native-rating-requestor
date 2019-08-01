@@ -1,5 +1,10 @@
 A list of changes that have occured through the versions.
 
+4.0.1
+-----
+
+- Fix for missing `storeUrl` bug (plus some small updates to README).
+
 4.0.0
 -----
 
