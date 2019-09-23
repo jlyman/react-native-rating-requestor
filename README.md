@@ -61,7 +61,7 @@ You can also trigger the rating dialog to appear immediately by invoking `Rating
 
 When on iOS 10.3+, if the user agrees to leave a review then it will trigger the native star picker dialog (SKStoreReviewController) built in to iOS. This is a definite improvement! However it's not foolproof. Because iOS ultimately makes the decision whether to show the dialog or not, there is a small chance that the user may agree to review the app, but because they've already seen the dialog recently, it may not appear. *Caveat emptor.* In most cases, though, this should work out better than before, because it immediately shows the star buttons instead of linking to the store first.
 
-This is accompished by using [react-native-store](https://github.com/oblador/react-native-store-review), a peer dependency of this package.
+This is accompished by using [react-native-store-review](https://github.com/oblador/react-native-store-review), a peer dependency of this package.
 
 ## Configuration
 
