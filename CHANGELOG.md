@@ -1,5 +1,10 @@
 A list of changes that have occured through the versions.
 
+4.1.0
+-----
+
+- 4.1.0 - Add TypeScript .d.ts file (props to [@randomBrainstormer](https://github.com/randomBrainstormer))
+
 4.0.1
 -----
 

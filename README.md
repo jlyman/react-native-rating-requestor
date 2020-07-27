@@ -122,6 +122,7 @@ Peer dependencies and linking may be required, depending on your app and version
 
 For more details, see CHANGELOG.md.
 
+- 4.1.0 - Add TypeScript .d.ts file (props to [@randomBrainstormer](https://github.com/randomBrainstormer))
 - 4.0.1 - Fix for missing `storeUrl`.
 - 4.0.0 - Minimum RN version compatibility now at 0.57+, use community AsyncStorage (props to [@imranariffin](https://github.com/imranariffin)), use iOS native review request dialog (props to [@jasonlfunk](https://github.com/jasonlfunk))
 - 3.2.1 - Remove unnecessary `console.log` call. Props to [@nlively](https://github.com/nlively)
