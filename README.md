@@ -10,7 +10,7 @@ The Rating Requestor is a very simple JS module that you simply instantiate and 
 
 You'll probably also want to install the peer dependencies as well: 
 
-    npm i --save @react-native-community/async-storage react-native-store-review
+    npm i --save @react-native-async-storage/async-storage react-native-store-review
 
  You may also need to `link` in or `pod install` the native modules from the peer dependencies, which varies depending on the version of React Native you are using.
 
