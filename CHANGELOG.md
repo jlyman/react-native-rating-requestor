@@ -1,5 +1,10 @@
 A list of changes that have occured through the versions.
 
+4.2.0
+-----
+
+- `async-storage` changed homes, so updated the dependency source (props to [@taylora123](https://github.com/taylora123]))
+
 4.1.0
 -----
 
