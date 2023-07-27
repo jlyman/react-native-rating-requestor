@@ -121,7 +121,7 @@ export default class RatingRequestor {
           RatingsData.recordRated();
           callback(true, "accept");
           // This API is only available on iOS 10.3 or later
-					if (Platform.OS === 'ios' && StoreReview.isAvailable) {
+					if (Platform.OS === 'ios') {
 						StoreReview.requestReview();
 					} else {
 						Linking.openURL(this.storeUrl);

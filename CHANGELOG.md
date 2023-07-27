@@ -1,5 +1,10 @@
 A list of changes that have occured through the versions.
 
+4.3.0 
+-----
+
+- Remove call to StoreReview.isAvailable on iOS (props to [@jforaker](https://github.com/jforaker))
+
 4.2.0
 -----
 
